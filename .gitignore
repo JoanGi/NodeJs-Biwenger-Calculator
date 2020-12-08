@@ -1,0 +1,17 @@
+docker/.env
+*node_modules*
+package-lock.json
+*output*
+.idea/
+*upload/*
+test/repo
+repo/
+.env
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
