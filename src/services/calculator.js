@@ -2,10 +2,7 @@ const fs = require('fs');
 const { isSetAccessor } = require('typescript');
 
 class Calculator { 
-    async calculator() {
-
- 
-
+    async calculator(user, board) {
        let rawdata = fs.readFileSync('stats.json');
        let dataObject = JSON.parse(rawdata);
        var initSalary = 50000000;
@@ -70,16 +67,17 @@ class Calculator {
                 })
             }
         });
-        
         jugadas.forEach(jugada => {
             if (jugada.tipus == 'suma') {
-                players[jugada.id].salary = players[jugada.id].salary + jugada.amount;
+                //console.log(playersParsed[0].leaguePlayers[jugada.id]);
+                user.leaguePlayers[jugada.id].salary = user.leaguePlayers[jugada.id].salary + jugada.amount;
             }
             else if (jugada.tipus == 'resta') {
-                players[jugada.id].salary = players[jugada.id].salary - jugada.amount;
+                user.leaguePlayers[jugada.id].salary = user.leaguePlayers[jugada.id].salary - jugada.amount
             }
         })
-        return players;
+        console.log(user.leaguePlayers);
+        return user.leaguePlayers;
     }
 
 }
