@@ -22,7 +22,6 @@ class Calculator {
             if(element.type == 'market') {
                 var tipus = 'resta';  
                 if (!Array.isArray(element.content)) {
-                    //console.log(element);
                 } else {
                     element.content.forEach( (single, index) => {
                         var amount = single.amount;
@@ -30,7 +29,6 @@ class Calculator {
                             var id = single.to.id;
                             
                         } else if (single.from){
-                            //console.log(element);
                             var id = single.from.id;
                         }
                         jugadas.push({'id': id, 'amount':amount,'tipus':tipus });
@@ -43,13 +41,17 @@ class Calculator {
                     console.log(element);
                 } else {
                     element.content.forEach( (single, index) => {
-                        var amount = single.amount;
+                        if (single.amount) {
+                            var amount = single.amount;
+                        } else {
+                            var amount = 0;
+                        }
                         if (single.from) {
                             var id = single.from.id;
                             jugadas.push({'id': id, 'amount':amount,'tipus':tipus });
                             if (single.to){
                                 var toid = single.to.id;
-                                jugadas.push({'id': toid, 'amount':amount,'tipus':'resta' });
+                                jugadas.push({'id': toid, 'amount':amount,'tipus':'resta' });                     
                             }
                             
                         }
@@ -61,15 +63,19 @@ class Calculator {
             } else if (element.type == 'roundFinished') {
                 var tipus = 'suma';
                 element.content.results.forEach(result => {
-                    var amount = result.bonus;
+                    if (result.bonus) {
+                        var amount =  result.bonus;
+                    } else {
+                        var amount = 0;
+                    }
                     var id = result.user.id;
-                    jugadas.push({'id': id, 'amount':amount,'tipus':tipus });
+                    jugadas.push({'id': id, 'amount':amount,'tipus':tipus });  
                 })
             }
         });
+       
         jugadas.forEach(jugada => {
             if (jugada.tipus == 'suma') {
-                //console.log(playersParsed[0].leaguePlayers[jugada.id]);
                 user.leaguePlayers[jugada.id].salary = user.leaguePlayers[jugada.id].salary + jugada.amount;
             }
             else if (jugada.tipus == 'resta') {

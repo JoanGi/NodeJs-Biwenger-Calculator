@@ -28,10 +28,16 @@ class Auth {
                 });
             })
         .then((res) => {
+            // If user is in more than one league get only the first
+            var bool = false;
                 res.data.data.leagues.forEach(league => {
-                    user.leagueId = league.id;
-                    user.leagueName = league.name;
-                    user.id = league.user.id;  
+                    if (!bool) {
+                        user.leagueId = league.id;
+                        user.leagueName = league.name;
+                        user.id = league.user.id; 
+                    } 
+                    bool = true;
+                     
                 });
             })
         .catch((error) => {
