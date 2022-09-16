@@ -1,3 +1,7 @@
+# Project no longer maintained.
+
+
+
 # Calculadora salarial Biwenger
 
 _Proyecto de API sobre NodeJS + Express que calcula el salario de los rivales de tu liga en Biwenger_
